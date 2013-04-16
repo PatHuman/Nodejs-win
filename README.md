@@ -1,7 +1,8 @@
-Express Template Demo
+Nodejs Lab under windows
 ===========
 
-A simple demo of using ejs and dustjs-linked template engines for your views in Express 3.x.
+discovering Nodejs.
+initial project forked from https://github.com/chovy/express-template-demo.git
 
 More info
 ----
