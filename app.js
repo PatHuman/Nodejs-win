@@ -14,7 +14,8 @@ var express = require('express')
 	, store = new express.session.MemoryStore
   , path = require('path'),
   vidStreamer = require("vid-streamer"),
-   mime = require('mime');
+   mime = require('mime'),
+   fs = require('fs');
 
 var app = express();
 
@@ -77,7 +78,7 @@ app.configure('development', function(){
 
 app.locals.inspect = require('util').inspect;
 app.get('/', routes.index);
-app.get("/videos/", vidStreamer, routes.index);
+app.get("/test", routes.vidList);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
