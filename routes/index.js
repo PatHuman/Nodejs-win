@@ -16,32 +16,39 @@ exports.vid = function(req, res){
 };
 
 exports.vidList = function(req, res){
+
  
 var fs = require("fs"),
     path = require("path"),
-	p ="./public/videos/";
-var list =[];
+   	folder ="./public/videos/",
+	 walk = require('walk'),
+	 options,
+	 walker,
+	 list = [];
+	 
 	
-fs.readdir(p, function (err, files) {
-    if (err) {
-        throw err;
-    }
+    
 
-      files.forEach( function (file) {
-     fs.lstat(p+file, function(err, stats) {
-       if (!err && stats.isDirectory()) { //conditing for identifying folders
-         list.push('<li class="folder">'+file+'</li>');
-       }
-       else{
-        list.push('<li class="file">'+file+'</li>');
-      }
-	  
+options = {
+    followLinks: false,
+};
 
+
+walker = walk.walk(folder, options);
+
+walker.on("file", function (root, fileStats, next) {
+     
+
+	 list.push( fileStats.name );
 	  
-     });
-   });
+    next();
 });
 	
-	res.locals.session = req.session;
+walker.on("end", function () {
+  res.locals.session = req.session;
   res.render('video', { list:list,  videoPath: 'videos/Finding modules.avi',  title: 'videos'  });
+});
+		
+	 
+  
 };

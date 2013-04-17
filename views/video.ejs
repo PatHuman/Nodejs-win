@@ -1,5 +1,28 @@
 <% layout('layout') -%>
 
+<script type='text/javascript'>
+
+$(document).ready(function() {
+
+ 
+
+$('.vid-link').click(function(){
+
+	alert($(this).attr('id'));
+
+});
+
+
+
+
+
+
+});
+
+ 
+
+ </script>
+ 
 <section id="main" class="column">
 		<article class="module width_3_quarter">
 		<header><h3 class="tabs_involved">Content Manager</h3>
@@ -21,16 +44,14 @@
 			</div><!-- end of #tab2 -->
 			
 			<div id="tab3" class="tab_content">
-					tab 3ffffffffffffdddddddddddddddddddddddddddddd
-					<%= list%>
-					<%= videoPath%>
-		<% if(list == 0) console.log(  list[1] );
-		for( var i=0; i< list.length; i++){ %>
+					
+		<ul>	 
+		<%   for(var i=0; i< list.length ; i++){ %>
 		
-		<a href="videos/"+ <%= list[i] %> > <%= l %> </a>
+		   <a class='vid-link' href='#' id='<%= list[i] %>'> <li> <%= list[i] %> </li> </a> <br> 
 		 
 	<% };%>
-
+		</ul>
 			</div><!-- end of #tab2 -->
 			
 		</div><!-- end of .tab_container -->
@@ -40,7 +61,7 @@
 	
 	</section> <br>
 	
-	 
+	 <div id='test'></div>
 	
 	
 	
