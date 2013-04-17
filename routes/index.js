@@ -16,22 +16,30 @@ exports.vid = function(req, res){
 };
 
 exports.vidList = function(req, res){
+ 
+var fs = require("fs"),
+    path = require("path"),
+	p ="./public/videos/";
+var list =[];
 	
-	var list = [];
-	req.app.fs.readdir('/public/videos/', function (err, files) { 
-	  if (err) throw err;
+fs.readdir(p, function (err, files) {
+    if (err) {
+        throw err;
+    }
 
-	   files.forEach( function (file) {
-		 req.app.fs.lstat('/public/videos/'+file, function(err, stats) {
-		   if (!err && stats.isDirectory()) { //conditing for identifying folders
-			list.push( '<li class="folder">'+file+'</li>');
-		   }
-		   else{
-			list.push('<li class="file">'+file+'</li>');
-		  }
-		 });
-	   });
+      files.forEach( function (file) {
+     fs.lstat(p+file, function(err, stats) {
+       if (!err && stats.isDirectory()) { //conditing for identifying folders
+         list.push('<li class="folder">'+file+'</li>');
+       }
+       else{
+        list.push('<li class="file">'+file+'</li>');
+      }
+	  
 
+	  
+     });
+   });
 });
 	
 	res.locals.session = req.session;

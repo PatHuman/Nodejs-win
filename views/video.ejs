@@ -12,29 +12,24 @@
 
 		<div class="tab_container">
 			<div id="tab1" class="tab_content">
-				 <section id="vid-box">
-					<object classid="clsid:67DABFBF-D0AB-41fa-9C46-CC0F21721616"
-					   width="640" height="264"
-						codebase="http://go.divx.com/plugin/DivXBrowserPlugin.cab">
-						<param name="src" value="<%= videoPath %>"/>
-						 
-						<embed
-							type="video/divx"
-							src="<%= videoPath %>"
-							width="640" height="264"
-							pluginspage="http://go.divx.com/plugin/download/">
-						</embed>
-					</object >
-				</section>
+				
 			</div><!-- end of #tab1 -->
 			
 			<div id="tab2" class="tab_content">
-					tab 2
+					tab 2fff
 
 			</div><!-- end of #tab2 -->
 			
 			<div id="tab3" class="tab_content">
-					tab 3
+					tab 3ffffffffffffdddddddddddddddddddddddddddddd
+					<%= list%>
+					<%= videoPath%>
+		<% if(list == 0) console.log(  list[1] );
+		for( var i=0; i< list.length; i++){ %>
+		
+		<a href="videos/"+ <%= list[i] %> > <%= l %> </a>
+		 
+	<% };%>
 
 			</div><!-- end of #tab2 -->
 			
@@ -45,10 +40,8 @@
 	
 	</section> <br>
 	
-	<ul id="foldertree"></ul>
-	 <% list.forEach(function(l){ %>
-		<a href="videos/"+ <% l %> ></a>
-	<% })%>
+	 
+	
 	
 	
 

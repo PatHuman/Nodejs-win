@@ -44,7 +44,7 @@ app.configure(function(){
 
   app.set('template_engine', template_engine);
   app.set('domain', domain);
-  app.set('port', process.env.PORT || 8080);
+  app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
   app.set('view engine', template_engine);
   app.use(express.favicon());
@@ -79,6 +79,7 @@ app.configure('development', function(){
 app.locals.inspect = require('util').inspect;
 app.get('/', routes.index);
 app.get("/test", routes.vidList);
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
