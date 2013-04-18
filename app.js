@@ -80,6 +80,7 @@ app.configure('development', function(){
 app.locals.inspect = require('util').inspect;
 app.get('/', routes.index);
 app.get("/test", routes.vidList);
+app.post("/test", routes.vidList);
 
 
 http.createServer(app).listen(app.get('port'), function(){

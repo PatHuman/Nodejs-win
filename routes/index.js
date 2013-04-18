@@ -20,11 +20,13 @@ exports.vidList = function(req, res){
  
 var fs = require("fs"),
     path = require("path"),
-   	folder ="./public/videos/",
+   	folder ="./public/videos",
 	 walk = require('walk'),
 	 options,
 	 walker,
-	 list = [];
+	 list = [],
+	 listPath = [],
+	 link = 'videos/Finding modules.avi';
 	 
 	
     
@@ -39,14 +41,20 @@ walker = walk.walk(folder, options);
 walker.on("file", function (root, fileStats, next) {
      
 
-	 list.push( fileStats.name );
+	list.push( fileStats.name );
+	root = root.substr(9);  							// removing public folder from the path
+	listPath.push( root+'/' + fileStats.name  );
 	  
     next();
 });
+
+ 
+
+ // console.log(req.body.link);
 	
 walker.on("end", function () {
   res.locals.session = req.session;
-  res.render('video', { list:list,  videoPath: 'videos/Finding modules.avi',  title: 'videos'  });
+  res.render('video', {linker:link, dirs:listPath, list:list,  videoPath: 'videos/Finding modules.avi',  title: 'videos'  });
 });
 		
 	 

@@ -4,18 +4,26 @@
 
 $(document).ready(function() {
 
+var linker;
  
 
 $('.vid-link').click(function(){
-
-	alert($(this).attr('id'));
+	
+	linker = $(this).attr('id');
+	$('#link').attr('valeu', linker);
+	$('#linker-form').submit();
+ 
+	
+ 	$('#vid-box').hide('slow');
+	
+	$('#embedLink').attr('src', linker);
+	$('#paramLink').attr('value', linker);
+	
+	$('#vid-box').show('slow');  
 
 });
 
-
-
-
-
+ 
 
 });
 
@@ -35,6 +43,27 @@ $('.vid-link').click(function(){
 
 		<div class="tab_container">
 			<div id="tab1" class="tab_content">
+			
+		<section id="vid-box">
+		
+		
+		
+
+			 <object classid="clsid:67DABFBF-D0AB-41fa-9C46-CC0F21721616"
+					   width="640" height="264"
+						codebase="http://go.divx.com/plugin/DivXBrowserPlugin.cab">
+						<param name="src" value="<%= linker %>" id='paramLink'/>
+						 
+						<embed
+							id='embedLink'
+							type="video/divx"
+							src="<%= linker %>"
+							width="640" height="264"
+							pluginspage="http://go.divx.com/plugin/download/">
+						</embed>
+					</object >
+  
+		</section>
 				
 			</div><!-- end of #tab1 -->
 			
@@ -48,11 +77,13 @@ $('.vid-link').click(function(){
 		<ul>	 
 		<%   for(var i=0; i< list.length ; i++){ %>
 		
-		   <a class='vid-link' href='#' id='<%= list[i] %>'> <li> <%= list[i] %> </li> </a> <br> 
+		   <a class='vid-link' href='#' id='<%= dirs[i] %>'> <li> <%= list[i] %> </li> </a> <br> 
 		 
 	<% };%>
 		</ul>
-			</div><!-- end of #tab2 -->
+			</div><!-- end of #tab2 --> <br>
+			
+				
 			
 		</div><!-- end of .tab_container -->
 		
@@ -61,8 +92,10 @@ $('.vid-link').click(function(){
 	
 	</section> <br>
 	
-	 <div id='test'></div>
+	  
 	
-	
+	<form id="linker-form" method="post" action="/test">
+		<input type="hidden" name="link" id="link" value=""/>
+	</form>
 	
 
