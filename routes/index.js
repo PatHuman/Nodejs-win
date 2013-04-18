@@ -9,11 +9,7 @@ exports.index = function(req, res){
   res.render('index', { title: 'Express with '+template_engine });
 };
 
-exports.vid = function(req, res){
-	var template_engine = req.app.settings.template_engine;
-	res.locals.session = req.session;
-  res.render('video', { videoPath: 'videos/Finding modules.avi',  title: 'videos'  });
-};
+
 
 exports.vidList = function(req, res){
 
@@ -31,9 +27,7 @@ var fs = require("fs"),
 	
     
 
-options = {
-    followLinks: false,
-};
+options = {  followLinks: false };
 
 
 walker = walk.walk(folder, options);

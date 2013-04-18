@@ -9,17 +9,21 @@ var linker;
 
 $('.vid-link').click(function(){
 	
+ 
+ 
 	linker = $(this).attr('id');
-	$('#link').attr('valeu', linker);
-	$('#linker-form').submit();
+	 console.log(linker);
+		$('#vid-box').fadeOut('fast');
+		
+		$('#embedLink').attr('src', linker);
+		$('#paramLink').attr('value', linker);
+		
+		$('#vid-box').fadeIn('fast');  
+	
+	 
  
 	
- 	$('#vid-box').hide('slow');
-	
-	$('#embedLink').attr('src', linker);
-	$('#paramLink').attr('value', linker);
-	
-	$('#vid-box').show('slow');  
+ 	
 
 });
 
