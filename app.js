@@ -15,7 +15,43 @@ var express = require('express')
   , path = require('path'),
   vidStreamer = require("vid-streamer"),
    mime = require('mime'),
-   fs = require('fs');
+   fs = require('fs'),
+   mongoose = require('mongoose'),
+   orm = require('orm');
+   
+   var opts = {
+  database : "nodedb",
+  protocol : "mysql",
+  host     : "localhost",
+  port     : 3306,         // optional, defaults to database default
+  username : "nodejs",
+  password : "pass",
+  query    : {
+    pool  :  false,    // optional, false by default
+    debug : false   // optional, false by default
+  }
+};
+
+orm.connect(opts, function (err, db) {
+	if (err) throw err;
+		
+	db.load("./models", function (err) {
+    // loaded!
+    var Person = db.models.person;
+    var adress   = db.models.adress;
+	
+	Person.sync(function (err) {
+    !err && console.log("Person synced !");
+	});
+	
+	adress .sync(function (err) {
+    !err && console.log("adress synced !");
+	});
+});
+
+	 
+
+});
   
 
 var app = express();
@@ -70,6 +106,18 @@ app.configure(function(){
 		res.locals.err = false; 
 		next();
 	});
+	
+/*	app.use(orm.express("mysql://nodejs:pass@localhost/nodejs", {
+    define: function (db, models) {
+		
+		db.load("./models", function (err) {
+		// loaded!
+		var Person = db.models.person;
+		var Pet    = db.models.pet;
+});
+
+    }
+}));*/
 
 });
 
