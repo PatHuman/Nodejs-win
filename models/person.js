@@ -1,10 +1,9 @@
 
-module.exports = function (db, cb) {
+exports.person = function (db, cb) {
 
-    db.load("./adress", function (err) {
-        if (err) throw err;
+     
 	
- person = db.define("person", {
+db.define("person", {
         name      : String,
         surname   : String,
         userName  : String,
@@ -22,12 +21,12 @@ module.exports = function (db, cb) {
             phone: orm.validators.rangeNumber(15, undefined, "phone-under-aged"),
 			email: orm.validators.unique()
         }
-    })
+    });
 	
-	 return cb();
-	/*.sync(function (err) {
-    !err && console.log("adress synced !");
-	});*/
+	 
+	
+	
+	return cb();
 };
 
 

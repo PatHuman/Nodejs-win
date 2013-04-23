@@ -2,6 +2,9 @@
 /**
  * Module dependencies.
  */
+ 
+ require('./models/person');
+require('./models/adress');
 
 //change your template engine and hostname here ('ejs' or 'dust')
 var template_engine = 'ejs'
@@ -18,7 +21,8 @@ var express = require('express')
    fs = require('fs'),
    mongoose = require('mongoose'),
    orm = require('orm');
-   
+    
+
    var opts = {
   database : "nodedb",
   protocol : "mysql",
@@ -32,7 +36,7 @@ var express = require('express')
   }
 };
 
-orm.connect(opts, function (err, db) {
+/*orm.connect(opts, function (err, db) {
 	if (err) throw err;
 		
 	db.load("./models", function (err) {
@@ -40,18 +44,12 @@ orm.connect(opts, function (err, db) {
     var Person = db.models.person;
     var adress   = db.models.adress;
 	
-	Person.sync(function (err) {
-    !err && console.log("Person synced !");
-	});
-	
-	adress .sync(function (err) {
-    !err && console.log("adress synced !");
-	});
+	 
 });
 
 	 
 
-});
+});*/
   
 
 var app = express();
@@ -107,17 +105,28 @@ app.configure(function(){
 		next();
 	});
 	
-/*	app.use(orm.express("mysql://nodejs:pass@localhost/nodejs", {
+	app.use(orm.express("mysql://nodejs:pass@localhost/nodedb", {
     define: function (db, models) {
 		
-		db.load("./models", function (err) {
-		// loaded!
-		var Person = db.models.person;
-		var Pet    = db.models.pet;
-});
+		
+		
+		models.person = require('./models/person');
+		models.adress = require('./models/adress');
+		
+			Person.sync(function (err) {
+		!err && console.log("..... synced !");
+		});
+
+		
+		
+	
+	 
 
     }
-}));*/
+	
+	
+	
+}));
 
 });
 

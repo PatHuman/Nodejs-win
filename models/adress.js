@@ -1,7 +1,7 @@
 
-module.exports = function (db, cb) {
+exports.adress = function (db, cb) {
 	
-adress = db.define("adress", {
+db.define("adress", {
         street      : String,
         number   : String,
         zipcode  : String,
@@ -17,8 +17,7 @@ adress = db.define("adress", {
         } 
     });
 	
-	 
-	 
+	
 	
 	return cb();
 };
