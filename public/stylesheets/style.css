@@ -834,3 +834,6 @@ fieldset textarea:focus {
   width: 30%;
   padding: 10px;
 }
+#errors_box {
+  display: none;
+}

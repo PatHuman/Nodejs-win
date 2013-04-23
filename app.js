@@ -183,7 +183,7 @@ app.post('/register',
     field("userName").trim().required(),
     field("userEmail").trim().required().isEmail(),
 	field("password").trim().required(),
-	field("password-conf").trim().required().equals( 'field::password' )
+	field("password_conf").trim().required().equals( 'field::password' )
   ),
   routes.registerAction );
  

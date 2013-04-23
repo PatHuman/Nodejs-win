@@ -12,19 +12,22 @@ $('#test-btn').click(function(){
 	$('#userName').attr('value', 'Toa Man');
 	$('#userEmail').attr('value','toto@home.be') ;
 	$('#password').attr('value', 'pass');
-	$('#password-conf').attr('value','pass');
+	$('#password_conf').attr('value','pass');
 
 });
 
  $('#register_form').submit(function(e){
  
-	e.preventDefault();
-	var formData = $("#register_form").serialize();
+	/*$.post('/register', $(this).serialize(), function(res){
+	console.log(res);
+		$('#errors_box').empty();
+		$('#errors_box').html(res).show();
+	
+	
+	} );
+	 
  
-	alert(formData);
-	console.log($("#register_form").serialize());
- 
- 
+ return false; */
  });
  
 
@@ -38,28 +41,31 @@ $('#test-btn').click(function(){
 
 
 <div id="form-box">
-<form id="register_form" method="post" action="register">
+<form id="register_form" method="post" action="/register">
 
 <table>
 	
 	
 	<tr>
 		<th><label class="form-labels" for="userName">Online Name</label></th>
-		<td><input id="userName" type="text" class="form-inputs" required /></td>
+		<td><input id="userName" name="userName" type="text" class="form-inputs"   required="required" /></td>
 	</tr>
 	<tr>
 		<th><label class="form-labels" for="userEmail">Email</label></th>
-		<td><input id="userEmail" type="email" class="form-inputs"required /></td>
+		<td><input id="userEmail" name="userEmail" type="email" class="form-inputs" required="required" /></td>
 	</tr>
 	
 	<tr>
 		<th><label class="form-labels" for="password">Passowrd</label></th>
-		<td><input id="password" type="password" class="form-inputs" required /></td>
+		<td><input id="password" name="password" type="password" class="form-inputs" required="required" /></td>
 	</tr>
 	
 	<tr>
 		<th><label class="form-labels" for="password-conf"> Passowrd again</label></th>
-		<td><input id="password-conf" type="password" class="form-inputs"required /></td>
+		<td><input id="password_conf" name="password_conf" type="password" class="form-inputs" required="required" /></td>
+	</tr>
+	<tr>
+		<td><div id="errors_box"></div> </td>
 	</tr>
 
 </table>

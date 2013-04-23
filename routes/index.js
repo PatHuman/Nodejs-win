@@ -14,7 +14,10 @@ exports.registerAction = function(req, res){
 
 	 if (!req.form.isValid) {
       // Handle errors
-      console.log(req.form.errors);
+		console.log(req.form.errors);
+	res.locals.session = req.session;	 
+	  res.render({errors: req.form.errors, title: 'Express with '});		
+	  
 
     } else {
       // Or, use filtered form data from the form object:
@@ -22,8 +25,8 @@ exports.registerAction = function(req, res){
       console.log("Password:", req.form.password);
       console.log("Email:", req.form.userEmail);
     }
-res.locals.session = req.session;
-res.end();
+
+ 
 
 };
 
