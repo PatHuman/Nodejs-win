@@ -1,5 +1,5 @@
 
-exports.person = function (db, cb) {
+module.exports = function (db, cb) {
 
      
 	

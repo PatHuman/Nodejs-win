@@ -10,6 +10,32 @@ exports.index = function(req, res){
 };
 
 
+exports.registerAction = function(req, res){
+
+	 if (!req.form.isValid) {
+      // Handle errors
+      console.log(req.form.errors);
+
+    } else {
+      // Or, use filtered form data from the form object:
+      console.log("Username:", req.form.userName);
+      console.log("Password:", req.form.password);
+      console.log("Email:", req.form.userEmail);
+    }
+res.locals.session = req.session;
+res.end();
+
+};
+
+
+exports.registerForm = function(req, res){
+	
+ 
+	var template_engine = req.app.settings.template_engine;
+	res.locals.session = req.session;
+  res.render('register', {title: 'Express with '+template_engine });
+};
+
 
 exports.vidList = function(req, res){
 

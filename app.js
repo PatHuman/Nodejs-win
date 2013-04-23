@@ -20,7 +20,10 @@ var express = require('express')
    mime = require('mime'),
    fs = require('fs'),
    mongoose = require('mongoose'),
-   orm = require('orm');
+   orm = require('orm'),
+    form = require('express-form'),
+field = form.field;	
+  
     
 
    var opts = {
@@ -108,12 +111,46 @@ app.configure(function(){
 	app.use(orm.express("mysql://nodejs:pass@localhost/nodedb", {
     define: function (db, models) {
 		
+	 
+			 models.person = db.define("person", {
+					name      : String,
+					surname   : String,
+					userName  : String,
+					email	  : String,
+					phone	  : Number,
+					adress	  : Object,
+					data      : Object // JSON encoded
+				}, {
+					methods: {
+						fullName: function () {
+						   return this.name + ' ' + this.surname +' \n'+ this.email +' \n'+ this.phone;
+						}
+					},
+					validations: {
+						phone: orm.validators.rangeNumber(15, undefined, "phone-under-aged"),
+						email: orm.validators.unique()
+					}
+			});
+
+			 models.adress = db.define("adress", {
+					street      : String,
+					number   : String,
+					zipcode  : String,
+					town	  : String,
+					country	  : String,
+					owner 		: Number
+					
+				}, {
+					methods: {
+						fullAdress: function () {
+						   return this.number + ' ' + this.street +' \n'+ this.zipcode + ' ' +this.town +' \n'+ this.country;
+						}
+					} 
+			});
+	
 		
-		
-		models.person = require('./models/person');
-		models.adress = require('./models/adress');
-		
-			Person.sync(function (err) {
+				
+		db.sync(function (err) {
 		!err && console.log("..... synced !");
 		});
 
@@ -137,6 +174,18 @@ app.configure('development', function(){
 app.locals.inspect = require('util').inspect;
 app.get('/', routes.index);
 app.get("/test", routes.vidList);
+app.get("/register", routes.registerForm);
+
+app.post('/register',
+
+  // Form filter and validation middleware
+  form(
+    field("userName").trim().required(),
+    field("userEmail").trim().required().isEmail(),
+	field("password").trim().required(),
+	field("password-conf").trim().required().equals( 'field::password' )
+  ),
+  routes.registerAction );
  
 
 

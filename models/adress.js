@@ -1,5 +1,5 @@
 
-exports.adress = function (db, cb) {
+module.exports = function (db, cb) {
 	
 db.define("adress", {
         street      : String,
@@ -15,7 +15,7 @@ db.define("adress", {
                return this.number + ' ' + this.street +' \n'+ this.zipcode + ' ' +this.town +' \n'+ this.country;
             }
         } 
-    });
+});
 	
 	
 	
