@@ -147,11 +147,31 @@ app.configure(function(){
 						}
 					} 
 			});
+			
+			models.tmp_user = db.define("tmp_user", {
+					
+					username  : String,
+					email     : String,
+					password  : String,
+					confirmed : Boolean
+					 
+					
+				}, {
+					methods: {
+						getUser: function () {
+						   return this.username + '\n ' + this.email +' \n conf:'+ this.confirmed  ;
+						}
+					},
+					
+					validations: {
+						 email: orm.validators.unique()
+					}
+			});
 	
 		
 				
 		db.sync(function (err) {
-		!err && console.log("..... synced !");
+		!err && console.log(".....All sync done !");
 		});
 
 		
@@ -183,7 +203,7 @@ app.post('/register',
     field("userName").trim().required(),
     field("userEmail").trim().required().isEmail(),
 	field("password").trim().required(),
-	field("password_conf").trim().required().equals( 'field::password' )
+	field("password_conf").trim().required().equals( 'field::password', 'the passwords do not match' )
   ),
   routes.registerAction );
  

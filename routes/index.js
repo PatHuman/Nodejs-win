@@ -14,17 +14,38 @@ exports.registerAction = function(req, res){
 
 	 if (!req.form.isValid) {
       // Handle errors
-		console.log(req.form.errors);
-	res.locals.session = req.session;	 
-	  res.render({errors: req.form.errors, title: 'Express with '});		
-	  
-
+	 	
+		res.send( { msg:0, 	errors:req.form.errors 	});
+	   
+	   
     } else {
       // Or, use filtered form data from the form object:
-      console.log("Username:", req.form.userName);
-      console.log("Password:", req.form.password);
-      console.log("Email:", req.form.userEmail);
-    }
+		var orm = require("orm");
+		orm.connect("mysql://nodejs:pass@localhost/nodedb", function (err, db){
+				
+				if (err) throw err ;
+				var user = db.define('tmp_user', { });
+				
+			        user.create([
+						{
+							username: req.form.userName,
+							email: req.form.userEmail,
+							password: req.form.password,
+							confirmed: false
+						} 
+					], function (err, items) {
+						
+						if (err) throw err ;
+						res.send( { msg: 0, 	errors: req.form.userName +' has been temporary saved' 	});
+						// err - description of the error or null
+						// items - array of inserted items
+					});
+				 
+		
+		});
+		
+  
+	  }
 
  
 
@@ -36,7 +57,12 @@ exports.registerForm = function(req, res){
  
 	var template_engine = req.app.settings.template_engine;
 	res.locals.session = req.session;
-  res.render('register', {title: 'Express with '+template_engine });
+  res.render('register', {
+	title: 'Express with '+template_engine,
+	msg:'',
+	errors:{},
+	form: {}
+	});
 };
 
 

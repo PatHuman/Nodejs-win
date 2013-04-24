@@ -18,16 +18,24 @@ $('#test-btn').click(function(){
 
  $('#register_form').submit(function(e){
  
-	/*$.post('/register', $(this).serialize(), function(res){
-	console.log(res);
+ 	$.post('/register', $(this).serialize(), function(rep){
+	 
+	 if (rep.msg == 0 ){ 
 		$('#errors_box').empty();
-		$('#errors_box').html(res).show();
+		$('#errors_box').html(rep.errors).show();
+	 }
+	 
+	  if (rep.msg == 1 ){ 
+		$('#errors_box').empty();
+		$('#errors_box').html(rep.errors).show();
+	 }
+	 
 	
 	
 	} );
 	 
  
- return false; */
+ return false;  
  });
  
 
@@ -48,27 +56,28 @@ $('#test-btn').click(function(){
 	
 	<tr>
 		<th><label class="form-labels" for="userName">Online Name</label></th>
-		<td><input id="userName" name="userName" type="text" class="form-inputs"   required="required" /></td>
+		<td><input id="userName" name="userName" type="text" class="form-inputs"   required="required" valeu="<%= form.userName %>" /></td>
 	</tr>
 	<tr>
 		<th><label class="form-labels" for="userEmail">Email</label></th>
-		<td><input id="userEmail" name="userEmail" type="email" class="form-inputs" required="required" /></td>
+		<td><input id="userEmail" name="userEmail" type="email" class="form-inputs" required="required" valeu="<%= form.userEmail %>" /></td>
 	</tr>
 	
 	<tr>
 		<th><label class="form-labels" for="password">Passowrd</label></th>
-		<td><input id="password" name="password" type="password" class="form-inputs" required="required" /></td>
+		<td><input id="password" name="password" type="password" class="form-inputs" required="required" valeu="<%= form.password %>" /></td>
 	</tr>
 	
 	<tr>
 		<th><label class="form-labels" for="password-conf"> Passowrd again</label></th>
-		<td><input id="password_conf" name="password_conf" type="password" class="form-inputs" required="required" /></td>
+		<td><input id="password_conf" name="password_conf" type="password" class="form-inputs" required="required" valeu="<%= form.password_conf %>" /></td>
 	</tr>
-	<tr>
-		<td><div id="errors_box"></div> </td>
-	</tr>
-
+	
 </table>
+ <div id="errors_box"> 
+			<%= errors%>
+		
+		</div> 
 
  <div id="from-btn-box">
 <input id="register-btn" type="submit" value="Register"/>
