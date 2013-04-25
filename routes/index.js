@@ -9,6 +9,41 @@ exports.index = function(req, res){
   res.render('index', { title: 'Express with '+template_engine });
 };
 
+/*Admin Tools*/
+exports.adminTmps = function(req, res){
+	
+		var list =[],
+		orm = require("orm");
+		orm.connect("mysql://nodejs:pass@localhost/nodedb", function (err, db){
+				
+				if (err) throw err ;
+				var tmps = db.define('tmp_user', { 
+					
+					username  : String,
+					email     : String,
+					confirmed : Boolean
+				
+				});
+				tmps.find({confirmed: '0'}, function(err, rows){
+						if(err) throw err;
+						
+						 
+						// console.log(rows.count()); Result:"OK", Records:
+						res.send({Result:"OK", Records:rows});
+				
+				});
+			        
+					
+				
+				 
+		
+		});
+	 
+   
+};
+
+
+
 
 exports.registerAction = function(req, res){
 

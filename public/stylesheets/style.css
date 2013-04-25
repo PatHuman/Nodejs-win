@@ -461,7 +461,7 @@ section#main {
   cursor: pointer;
 }
 .tablesorter td {
-  padding: 15px 10px;
+  padding: 5px 1px;
 }
 .tablesorter input[type=image] {
   margin-right: 10px;
@@ -842,4 +842,16 @@ fieldset textarea:focus {
   text-align: right;
   margin-top: 5px;
   color: red;
+}
+#admin_tool_box {
+  width: 50%;
+}
+#tmp_table {
+  width: 50%;
+}
+#tmp_users {
+  width: 50%;
+  margin-top: 25px;
+  margin-left: 5px;
+  margin-bottom: 5px;
 }

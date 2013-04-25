@@ -2,12 +2,19 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
 	
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+	<link href="/stylesheets/themes/lightcolor/blue/jtable.css" rel="stylesheet" type="text/css" />
+	<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" type="text/css" />
 
 
 
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+	<script src="javascripts/jquery.jtable.min.js"></script>
+	 
+	 
+	 
 	
 	
 	
@@ -77,8 +84,8 @@
 		<br> <br>	
 		
 		
-		<article class="module width_3_quarter">
-		<header><h3 class="tabs_involved">Content Manager</h3>
+		<article id='admin_tool_box'class="module width_3_quarter">
+		<header><h3 class="tabs_involved">Admin tool</h3>
 		<ul class="tabs">
    			<li><a href="#tab1">Posts</a></li>
     		<li><a href="#tab2">Comments</a></li>
@@ -87,7 +94,7 @@
 
 		<div class="tab_container">
 			<div id="tab1" class="tab_content">
-			<table class="tablesorter" cellspacing="0"> 
+			<table id='tmp_table' class="tablesorter" cellspacing="0"> 
 			<thead> 
 				<tr> 
    					<th>tmp user</th> 
@@ -97,18 +104,8 @@
     				<th>Actions</th> 
 				</tr> 
 			</thead> 
-			<tbody> 
-				<tr> 
+			<tbody id='tmp_table_content'> 
 				
-					<% 
-					
-					 
-					
-					%>
-   					
-    			 
-    				<td><input type="image" src="images/icn_edit.png" title="Edit"><input type="image" src="images/icn_trash.png" title="Trash"></td> 
-				</tr> 
 				
 				 
 			</tbody> 
@@ -116,7 +113,8 @@
 			</div><!-- end of #tab1 -->
 			
 			<div id="tab2" class="tab_content">
-
+				 
+				<div id="tmp_users"></div>
 
 			</div><!-- end of #tab2 -->
 			
@@ -124,6 +122,7 @@
 		
 		</article><!-- end of content manager article -->
 
+  
 
 		
 		
@@ -136,7 +135,24 @@
 
 $(document).ready(function() {
 
+	/*$.get('/admin/tmps', function(rep){ 
 	
+		
+		$('#tmp_table tbody').empty(); 
+		
+		$.each(rep.list, function(i, list){
+		
+			$('#tmp_table tbody').append('<tr> <td>'+ list.id+'</td> <td>'+ list.username+
+										'</td> <td>'+ list.email+'</td> <td>'+ list.confirmed+
+										'</td> <td><input id="'+list.id+'" class="tmp_table_edit_btn" type="image" src="images/icn_edit.png" title="Edit"><input id="'+list.id+'" class="tmp_table_del_btn" type="image" src="images/icn_trash.png" title="Trash"></td></tr>');
+			 
+				 
+					
+		});
+		
+		 
+	
+	});*/
  
  /* outsider inputs*/
  
@@ -156,6 +172,47 @@ $(document).ready(function() {
 		$(activeTab).fadeIn(); //Fade in the active ID content
 		return false;
 	});
+	
+	/*-----------------j tbale--------------*/
+		/*JQUERY TABLE*/
+	
+	
+         $('#tmp_users').jtable({
+            title: 'Temporary users',
+            actions: {
+                listAction: '/admin/tmps',
+                createAction: '/GettingStarted/CreatePerson',
+                updateAction: '/GettingStarted/UpdatePerson',
+                deleteAction: '/GettingStarted/DeletePerson'
+            },
+            fields: {
+                id: {
+                    title:'ID',
+					key: true,
+                    list: true
+                },
+                username: {
+                    title: 'Online Name',
+                    width: '40%'
+                },
+                email: {
+                    title: 'Email',
+                    width: '30%'
+                },
+                confirmed: {
+                    title: 'Confirmed',
+                    width: '20%',
+                    create: false,
+                    edit: false
+                }
+            }
+        }); 
+		
+		$('#tmp_users').jtable('load');
+	
+        
+            
+	
  
 
 });

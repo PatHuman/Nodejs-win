@@ -195,6 +195,7 @@ app.locals.inspect = require('util').inspect;
 app.get('/', routes.index);
 app.get("/test", routes.vidList);
 app.get("/register", routes.registerForm);
+app.get("/admin/tmps", routes.adminTmps);
 
 app.post('/register',
 
