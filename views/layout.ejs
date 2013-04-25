@@ -74,11 +74,93 @@
 	
 		<h1><%= title %></h1>
 			<%- body %>
+		<br> <br>	
+		
+		
+		<article class="module width_3_quarter">
+		<header><h3 class="tabs_involved">Content Manager</h3>
+		<ul class="tabs">
+   			<li><a href="#tab1">Posts</a></li>
+    		<li><a href="#tab2">Comments</a></li>
+		</ul>
+		</header>
+
+		<div class="tab_container">
+			<div id="tab1" class="tab_content">
+			<table class="tablesorter" cellspacing="0"> 
+			<thead> 
+				<tr> 
+   					<th>tmp user</th> 
+    				<th>Online Name</th> 
+    				<th>Email</th> 
+    				<th>Confirmed</th> 
+    				<th>Actions</th> 
+				</tr> 
+			</thead> 
+			<tbody> 
+				<tr> 
+				
+					<% 
+					
+					 
+					
+					%>
+   					
+    			 
+    				<td><input type="image" src="images/icn_edit.png" title="Edit"><input type="image" src="images/icn_trash.png" title="Trash"></td> 
+				</tr> 
+				
+				 
+			</tbody> 
+			</table>
+			</div><!-- end of #tab1 -->
 			
+			<div id="tab2" class="tab_content">
+
+
+			</div><!-- end of #tab2 -->
+			
+		</div><!-- end of .tab_container -->
+		
+		</article><!-- end of content manager article -->
+
+
+		
 		
 	</body>
-  </div>
+  
 <!--
 <%= inspect(session) %>
 -->
+<script type='text/javascript'>
+
+$(document).ready(function() {
+
+	
+ 
+ /* outsider inputs*/
+ 
+ //When page loads...
+	$(".tab_content").hide(); //Hide all content
+	$("ul.tabs li:first").addClass("active").show(); //Activate first tab
+	$(".tab_content:first").show(); //Show first tab content
+
+	//On Click Event
+	$("ul.tabs li").click(function() {
+
+		$("ul.tabs li").removeClass("active"); //Remove any "active" class
+		$(this).addClass("active"); //Add "active" class to selected tab
+		$(".tab_content").hide(); //Hide all tab content
+
+		var activeTab = $(this).find("a").attr("href"); //Find the href attribute value to identify the active tab + content
+		$(activeTab).fadeIn(); //Fade in the active ID content
+		return false;
+	});
+ 
+
+});
+
+ </script>
+
+
 </html>
